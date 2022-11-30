@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from "react";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
+import {RemoveScrollBar} from 'react-remove-scroll-bar';
 import * as BarData from "../data/features.json";
 
 export default function Home() {
@@ -22,16 +23,21 @@ export default function Home() {
   }, [selectedBar]);
 
   return (
-    <div className="flex h-screen w-screen">
-      <ReactMapGL
+    <div className="flex h-screen w-screen justify-center items-center">
+      <RemoveScrollBar />
+     <div className="flex w-1/2 h-1/2">
+     <ReactMapGL
         {...viewport}
-        onMove={(viewport) => {
+        onDblClick={(viewport) => {
           setViewport(viewport);
         }}
         mapStyle={"mapbox://styles/caporetto/clb3eipel000215qvgt65l533"}
         mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_PUBLIC_ACCESS_TOKEN}
+        onClick={(e)=>{console.log(e)}}
       >
-        {BarData.features.map((bar) => (
+       {
+        /*
+         {BarData.features.map((bar) => (
           <Marker
             pitchAlignment="viewport"
             key={bar.id}
@@ -48,7 +54,10 @@ export default function Home() {
             </div>
           </Marker>
         ))}
+        */
+       }
       </ReactMapGL>
+     </div>
     </div>
   );
 }
